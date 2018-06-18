@@ -1,7 +1,8 @@
 <?php
-namespace tmc\sp\src\Components;
+namespace tmc\mp\src\Components;
 use shellpress\v1_2_4\src\Shared\Components\IComponent;
 use tmc\mp\src\App;
+use WP_Term;
 
 /**
  * @author jakubkuranda@gmail.com
@@ -20,19 +21,17 @@ class ShortCodes extends IComponent {
 	 */
 	protected function onSetUp() {
 
-		add_action( 'init', array( $this, '_a_initShortcodes' ) );
+		//  ----------------------------------------
+		//  Actions
+		//  ----------------------------------------
 
-	}
+		add_action( 'init',                                             array( $this, '_a_initShortcodes' ) );
 
-	/**
-	 * Registers shortcodes.
-	 * Called on init.
-	 *
-	 * @return void
-	 */
-	public function _a_initShortcodes() {
+		//  ----------------------------------------
+		//  Filters
+		//  ----------------------------------------
 
-		add_shortcode( $this::SHORTCODE_TAG, array( $this, 'getOpenPopupShortcode' ) );
+		add_filter( 'wp_nav_menu_objects',                              array( $this, '_f_applyShortcodesOnNavMenu' ) );
 
 	}
 
@@ -55,6 +54,44 @@ class ShortCodes extends IComponent {
 			return sprintf( '<span data-tmc_sp_open style="cursor: pointer;">%1$s</span>', $btnText );
 
 		}
+
+	}
+
+	//  ================================================================================
+	//  ACTIONS
+	//  ================================================================================
+
+	/**
+	 * Registers shortcodes.
+	 * Called on init.
+	 *
+	 * @return void
+	 */
+	public function _a_initShortcodes() {
+
+		add_shortcode( $this::SHORTCODE_TAG, array( $this, 'getOpenPopupShortcode' ) );
+
+	}
+
+	//  ================================================================================
+	//  FILTERS
+	//  ================================================================================
+
+	/**
+	 * @param string[] $items
+	 *
+	 * @return string[]
+	 */
+	public function _f_applyShortcodesOnNavMenu( $items ) {
+
+		foreach( $items as $key => $item ){ /** @var WP_Term $item */
+			if( strpos( $item->title, ShortCodes::SHORTCODE_TAG ) ){
+				$item->title = do_shortcode( $item->title );
+				$item->url = '';
+			}
+		}
+
+		return $items;
 
 	}
 

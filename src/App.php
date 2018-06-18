@@ -10,6 +10,7 @@ namespace tmc\mp\src;
 use shellpress\v1_2_4\ShellPress;
 use tmc\mp\src\Components\License;
 use tmc\mp\src\Components\Settings;
+use tmc\mp\src\Components\ShortCodes;
 use tmc_mp_acf;
 
 class App extends ShellPress {
@@ -39,6 +40,8 @@ class App extends ShellPress {
 
 		$this->license = new License( $this );
 		$this->settings = new Settings( $this );
+
+		new ShortCodes( $this );
 
 		//  ----------------------------------------
 		//  AdminPageFramework
