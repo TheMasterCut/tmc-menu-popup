@@ -8,8 +8,13 @@ namespace tmc\mp\src;
  */
 
 use shellpress\v1_2_4\ShellPress;
+use tmc\mp\src\Components\License;
+use tmc_mp_acf;
 
 class App extends ShellPress {
+
+	/** @var License */
+	public $license;
 
 	/**
 	 * Called automatically after core is ready.
@@ -23,6 +28,25 @@ class App extends ShellPress {
 		//  ----------------------------------------
 
 		$this::s()->autoloading->addNamespace( 'tmc\mp', dirname( $this::s()->getMainPluginFile() ) );
+
+		//  ----------------------------------------
+		//  Components
+		//  ----------------------------------------
+
+		$this->license = new License( $this );
+
+		//  ----------------------------------------
+		//  AdminPageFramework
+		//  ----------------------------------------
+
+		if( is_admin() && ! wp_doing_ajax() && ! wp_doing_cron() ){
+
+			$this::s()->requireFile( 'lib/tmc-admin-page-framework/admin-page-framework.php', 'TMC_v1_0_3_AdminPageFramework' );
+			$this::s()->requireFile( 'src/AdminPages/tmc_mp_acf.php' );
+
+			new tmc_mp_acf( $this::s()->options->getOptionsKey(), $this::s()->getMainPluginFile() );
+
+		}
 
 	}
 }

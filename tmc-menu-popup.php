@@ -31,7 +31,7 @@ require dirname( __FILE__ ) . '/lib/ShellPress/src/Shared/Utility/RequirementChe
 $requirementChecker = new ShellPress_RequirementChecker();
 
 $checkPHP   = $requirementChecker->checkPHPVersion( '5.3', 'Menu Popup TMC requires PHP version >= 5.3' );
-$checkWP    = $requirementChecker->checkWPVersion( '4.8', 'Menu Popup TMC mode requires WP version >= 4.3' );
+$checkWP    = $requirementChecker->checkWPVersion( '4.8', 'Menu Popup TMC mode requires WP version >= 4.8' );
 
 if( ! $checkPHP || ! $checkWP ) return;
 
