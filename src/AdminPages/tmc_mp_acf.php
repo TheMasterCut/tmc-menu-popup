@@ -20,7 +20,7 @@ class tmc_mp_acf extends TMC_v1_0_3_AdminPageFramework {
 
 		$this->oProp->bShowDebugInfo = false;
 
-		$this->setRootMenuPageBySlug( 'Settings' );
+		$this->setRootMenuPage( 'Settings' );
 		$this->setInPageTabTag( 'h2' );
 
 		$this->addSubMenuItem( array(

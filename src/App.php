@@ -9,12 +9,16 @@ namespace tmc\mp\src;
 
 use shellpress\v1_2_4\ShellPress;
 use tmc\mp\src\Components\License;
+use tmc\mp\src\Components\Settings;
 use tmc_mp_acf;
 
 class App extends ShellPress {
 
 	/** @var License */
 	public $license;
+
+	/** @var Settings */
+	public $settings;
 
 	/**
 	 * Called automatically after core is ready.
@@ -34,6 +38,7 @@ class App extends ShellPress {
 		//  ----------------------------------------
 
 		$this->license = new License( $this );
+		$this->settings = new Settings( $this );
 
 		//  ----------------------------------------
 		//  AdminPageFramework
