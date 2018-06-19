@@ -1,5 +1,5 @@
 <?php
-namespace tmc\sp\src\Components;
+namespace tmc\mp\src\Components;
 
 /**
  * @author jakubkuranda@gmail.com

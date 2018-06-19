@@ -12,7 +12,7 @@ use tmc\mp\src\Components\License;
 use tmc\mp\src\Components\Settings;
 use tmc\mp\src\Components\ShortCodes;
 use tmc\mp\src\Components\Display;
-use tmc\sp\src\Components\Updates;
+use tmc\mp\src\Components\Updates;
 use tmc_mp_acf;
 
 class App extends ShellPress {
