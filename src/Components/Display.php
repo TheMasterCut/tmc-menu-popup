@@ -1,5 +1,5 @@
 <?php
-namespace tmc\sp\src\Components;
+namespace tmc\mp\src\Components;
 
 /**
  * @author jakubkuranda@gmail.com
@@ -9,8 +9,6 @@ namespace tmc\sp\src\Components;
 
 use shellpress\v1_2_4\src\Shared\Components\IComponent;
 use tmc\mp\src\App;
-use WP_Query;
-use WP_Term;
 
 class Display extends IComponent {
 
@@ -25,11 +23,7 @@ class Display extends IComponent {
 
 		add_action( 'wp_footer',                                        array( $this, '_a_displayPopupRoot' ) );
 		add_action( 'wp_enqueue_scripts',                               array( $this, '_a_enqueueScripts' ) );
-
-		add_action( 'wp_ajax_nopriv_' . $this::SUBMIT_AJAX_CALLBACK,    array( $this, '_a_submitAjaxCallback' ) );
-		add_action( 'wp_ajax_' . $this::SUBMIT_AJAX_CALLBACK,           array( $this, '_a_submitAjaxCallback' ) );
-
-		add_filter( 'wp_nav_menu_objects',                              array( $this, '_f_applyShortcodesOnNavMenu' ) );
+		add_action( 'widgets_init',                                     array( $this, '_a_registerSidebars' ));
 
 	}
 
@@ -61,37 +55,36 @@ class Display extends IComponent {
 
 		?>
 
-		<div class="tmc_sp_root" id="tmc_sp_root">
+        <div id="tmc_mp_root">
 
-            <div class="close-root">
-
-                <span class="close" id="tmc_sp_close"></span>
+            <div data-tmc_mp_close class="tmc_mp_exit_area">
 
             </div>
+            <div class="tmc_mp_sidebar">
 
-            <div class="wrapper-inner">
+                <div class="tmc_mp_inner">
 
-                <form id="tmc_sp_form" action="<?php echo admin_url( 'admin-ajax.php' ); ?>">
+					<?php
+					if( is_active_sidebar( 'tmc-menu-popup-widgets' ) ){
 
-                    <input type="hidden" name="action" value="<?php echo $this::SUBMIT_AJAX_CALLBACK; ?>">
+						echo '<ul class="widgets">';
+						dynamic_sidebar( 'tmc-menu-popup-widgets' );
+						echo '</ul>';
 
-                    <div class="inputs-row">
-                        <div>
-                            <input type="text" name="search" autocomplete="off" id="tmc_sp_input_text" class="input-text" placeholder="<?php echo App::i()->settings->getSearchPlaceholder(); ?>">
-                        </div>
-                        <div>
-                            <input type="submit" class="input-button" id="tmc_sp_submit_button" data-loadingText="<?php echo App::i()->settings->getSearchButtonLoadingText(); ?>" value="<?php echo App::i()->settings->getSearchButtonText(); ?>">
-                        </div>
-                    </div>
-                </form>
+					} else {
 
-                <div class="results" id="tmc_sp_results">
-                    <!-- HERE GOES RESULTS -->
+					    if( current_user_can( 'manage_options' ) ){
+					        printf( '<p class="tmc_mp_error_message">%1$s</p>', __( 'You need to enable sidebar in WordPress options.', 'tmc_mp' ) );
+                        }
+
+                    }
+					?>
+
                 </div>
 
             </div>
 
-		</div>
+        </div>
 
 		<?php
 
@@ -108,123 +101,31 @@ class Display extends IComponent {
 
 	    if( ! $this->shouldDisplayPopup() ) return;
 
-	    wp_enqueue_style( 'tmc_sp_style', $this::s()->getUrl( 'assets/css/style.css' ), array(), $this::s()->getFullPluginVersion() );
+	    wp_enqueue_style( 'tmc_mp_style', $this::s()->getUrl( 'assets/css/style.css' ), array(), $this::s()->getFullPluginVersion() );
 
-	    wp_enqueue_script( 'tmc_sp_search', $this::s()->getUrl( 'assets/js/front.js' ), array( 'jquery' ), $this::s()->getFullPluginVersion(), true );
-
-	    ?>
-
-        <!-- BEGIN TMC SEARCH POPUP CUSTOM STYLE -->
-        <style>
-            #tmc_sp_root {
-                color:                  <?php echo App::i()->settings->getTextColor(); ?>;
-                background-color:       <?php echo App::i()->settings->getBackgroundColor(); ?>;
-            }
-            #tmc_sp_input_text {
-                border-bottom-color:    <?php echo App::i()->settings->getColorAccentPrimary(); ?>;
-            }
-            #tmc_sp_submit_button {
-                color:                  <?php echo App::i()->settings->getColorAccentSecondary(); ?>;
-                background-color:       <?php echo App::i()->settings->getColorAccentPrimary(); ?>;
-            }
-            #tmc_sp_close:before,
-            #tmc_sp_close:after {
-                background-color:       <?php echo App::i()->settings->getColorAccentPrimary(); ?>;
-            }
-        </style>
-        <!-- END TMC SEARCH POPUP CUSTOM STYLE -->
-
-        <?php
+	    wp_enqueue_script( 'tmc_mp_script', $this::s()->getUrl( 'assets/js/front.js' ), array( 'jquery' ), $this::s()->getFullPluginVersion(), true );
 
     }
 
 	/**
-     * Prepares HTML for ajax request.
+     * Registers main widgets area.
+     * Called on widgets_init.
      *
 	 * @return void
 	 */
-    public function _a_submitAjaxCallback() {
+    public function _a_registerSidebars() {
 
-        //  ----------------------------------------
-        //  Prepare query
-        //  ----------------------------------------
-
-        $query = new WP_Query( array(
-            'post_type'     =>  App::i()->settings->getSupportedPostTypes(),
-            's'             =>  sanitize_text_field( $_REQUEST['search'] ),
-            'post_status'   =>  'publish',
-        ) );
-
-        //  ----------------------------------------
-        //  Pack data
-        //  ----------------------------------------
-
-	    //  Data passed to mustache engine.
-        $templateData = array(
-            'noResultsText'     =>  App::i()->settings->getNoResultsFoundText()
+	    register_sidebar(
+            array(
+                'name'              =>  __( 'Menu Popup TMC', 'tmc_mp' ),
+                'id'                =>  'tmc-menu-popup-widgets',
+                'description'       =>  __( 'Main widget area inside popup.', 'tmc_mp' ),
+                'before_widget'     =>  '<aside id="%1$s" class="widget %2$s">',
+                'after_widget'      =>  '</aside>',
+                'before_title'      =>  '<h3 class="widget-title">',
+                'after_title'       =>  '</h3>',
+	        )
         );
-
-        if( App::i()->license->isActive() ){    //  Enable searching only with active license.
-
-	        while( $query->have_posts() ){
-
-		        $query->the_post();
-
-		        //  Messy stuff.
-
-		        $thumbUrl       = get_the_post_thumbnail_url( null, 'thumbnail' );
-		        $thumbPos       = App::i()->settings->getThumbnailsPosition();
-		        $excerpt        = has_excerpt() ? get_the_excerpt() : wp_trim_excerpt();
-		        $titleTag       = App::i()->settings->getResultTitleTag();
-		        $titleRendered  = "<{$titleTag}>" . get_the_title() . "</{$titleTag}>";
-
-		        //  Nice, packed data.
-
-		        $templateData['results'][] = array(
-			        'title'         =>  get_the_title(),
-			        'titleRendered' =>  $titleRendered,
-			        'excerpt'       =>  strip_shortcodes( $excerpt ),
-			        'url'           =>  get_the_permalink(),
-			        'hasThumb'      =>  $thumbUrl && $thumbPos,
-			        'thumbUrl'      =>  $thumbUrl,
-			        'thumbPos'      =>  $thumbPos
-		        );
-
-		        wp_reset_postdata();
-
-	        }
-
-        }
-
-        //  ----------------------------------------
-        //  Render HTML
-        //  ----------------------------------------
-
-        $html = $this::s()->mustache->render( 'src/Templates/searchResult.mustache', $templateData );
-
-        wp_die( $html );    //  Send ajax response.
-
-    }
-
-    //  ================================================================================
-    //  FILTERS
-    //  ================================================================================
-
-	/**
-	 * @param string[] $items
-	 *
-	 * @return string[]
-	 */
-    public function _f_applyShortcodesOnNavMenu( $items ) {
-
-        foreach( $items as $key => $item ){ /** @var WP_Term $item */
-            if( strpos( $item->title, ShortCodes::SHORTCODE_TAG ) ){
-                $item->title = do_shortcode( $item->title );
-                $item->url = '';
-            }
-        }
-
-        return $items;
 
     }
 

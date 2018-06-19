@@ -8,7 +8,7 @@ namespace tmc\sp\src\Components;
  */
 
 use shellpress\v1_2_4\src\Shared\Components\IComponent;
-use tmc\sp\src\App;
+use tmc\mp\src\App;
 
 class Updates extends IComponent {
 
@@ -19,7 +19,7 @@ class Updates extends IComponent {
 	 */
 	protected function onSetUp() {
 
-		$this::s()->update->setFeedSource( 'https://raw.githubusercontent.com/TheMasterCut/tmc-search-popup/master/updates.json' );
+		$this::s()->update->setFeedSource( 'https://raw.githubusercontent.com/TheMasterCut/tmc-menu-popup/master/updates.json' );
 
 		if( ! App::i()->license->isActive() ){
 			$this::s()->update->disableUpdateOfPackage();

@@ -17,6 +17,50 @@ class Settings extends IComponent {
 	 * @return void
 	 */
 	protected function onSetUp() {
-		// TODO: Implement onSetUp() method.
+
+		$this::s()->options->setDefaultOptions(
+			array(
+				'shortcodes'    =>  array(
+					'openBtnIcon'   =>  $this::s()->getUrl( 'assets/img/menu.png' ),
+					'openBtnText'   =>  __( 'Menu', 'tmc_mp' )
+				)
+			)
+		);
+
+		$this::s()->event->addOnActivate( array( $this, '_a_fillOptionsDifferences' ) );
+
 	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getOpenBtnIconUrl() {
+
+		return $this::s()->options->get( 'shortcodes/openBtnIcon' );
+
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getOpenBtnText() {
+
+		return $this::s()->options->get( 'shortcodes/openBtnText' );
+
+	}
+
+	//  ================================================================================
+	//  Activation
+	//  ================================================================================
+
+	/**
+	 * Called on plugin activation.
+	 */
+	public function _a_fillOptionsDifferences() {
+
+		$this::s()->options->fillDifferencies();
+		$this::s()->options->flush();
+
+	}
+
 }

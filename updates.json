@@ -1,0 +1,11 @@
+{
+  "id": 			"tmc-menu-popup/tmc-menu-popup.php",
+  "slug": 			"tmc-menu-popup",
+  "plugin": 		"tmc-menu-popup/tmc-menu-popup.php",
+  "new_version": 	"1.0.0",
+  "url": 			"https://themastercut.co",
+  "package": 		"https://github.com/TheMasterCut/tmc-menu-popup/releases/download/1.0.0/tmc-menu-popup.zip",
+  "icons": 			[],
+  "tested":			"4.9.6",
+  "requires_php":	false
+}

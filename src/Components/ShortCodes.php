@@ -42,16 +42,16 @@ class ShortCodes extends IComponent {
 	 */
 	public function getOpenPopupShortcode( $attrs ) {
 
-		$iconUrl    = App::i()->settings->getOpenButtonIconUrl();
-		$btnText    = App::i()->settings->getOpenButtonText();
+		$iconUrl    = App::i()->settings->getOpenBtnIconUrl();
+		$btnText    = App::i()->settings->getOpenBtnText();
 
 		if( $iconUrl ){
 
-			return sprintf( '<span data-tmc_sp_open style="cursor: pointer; display: inline-block;"><img src="%1$s" alt="%2$s"></span>', $iconUrl, $btnText );
+			return sprintf( '<span data-tmc_mp_open style="cursor: pointer; display: inline-block;"><img src="%1$s" alt="%2$s"></span>', $iconUrl, $btnText );
 
 		} else {
 
-			return sprintf( '<span data-tmc_sp_open style="cursor: pointer;">%1$s</span>', $btnText );
+			return sprintf( '<span data-tmc_mp_open style="cursor: pointer;">%1$s</span>', $btnText );
 
 		}
 
