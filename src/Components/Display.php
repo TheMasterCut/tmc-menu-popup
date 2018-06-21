@@ -62,6 +62,9 @@ class Display extends IComponent {
             </div>
             <div class="tmc_mp_sidebar">
 
+                <div class="tmc_mp_mobile_close_area">
+                    <span class="tmc_mp_close_button" data-tmc_mp_close></span>
+                </div>
                 <div class="tmc_mp_inner">
 
 					<?php

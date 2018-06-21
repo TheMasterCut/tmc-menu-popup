@@ -1,3 +1,13 @@
+//  ----------------------------------------
+//  Variables
+//  ----------------------------------------
+
+$mobile-breakpoint: 600px;
+
+//  ----------------------------------------
+//  Styles
+//  ----------------------------------------
+
 body.noscroll {
 
     overflow: hidden;
@@ -31,87 +41,142 @@ body.noscroll {
 
     }
 
-    .tmc_mp_exit_area {
-        position: absolute;
-        z-index: 99999991;
-        width: 100%;
-        height: 100%;
-        cursor: url( '../img/close.png' ), auto;
+}
+
+.tmc_mp_exit_area {
+
+    position: absolute;
+    z-index: 99999991;
+    width: 100%;
+    height: 100%;
+    cursor: url( '../img/close.png' ), auto;
+
+}
+
+.tmc_mp_sidebar {
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    transform: translateX( 100% );
+    z-index: 99999992;
+    background-color: white;
+    max-width: 400px;
+    width: 100%;
+    overflow-y: scroll;
+    transition: all 500ms;
+    cursor: auto;
+
+    @media screen and ( max-width: $mobile-breakpoint ){
+
+        max-width: 100%;
+
     }
 
-    .tmc_mp_sidebar {
+    //  fill up style for wp menu if needed
 
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        transform: translateX( 100% );
-        z-index: 99999992;
-        background-color: white;
-        max-width: 400px;
-        width: 100%;
-        overflow-y: scroll;
-        transition: all 500ms;
-        cursor: auto;
+    ul.widgets {
 
-        .tmc_mp_inner {
+        color: #000;
+        line-height: 2em;
+        padding-left: 15px;
 
-        }
+        li.menu-item, li.page_item {
 
-        //  fill up style for wp menu if needed
+            display: block;
 
-        ul.widgets {
+            a {
+                color: #000;
+            }
 
-            color: #000;
-            line-height: 2em;
-            padding-left: 15px;
-
-            li.menu-item, li.page_item {
-
-                display: block;
+            &.current-menu-item {
 
                 a {
                     color: #000;
-                }
-
-                &.current-menu-item {
-
-                    a {
-                        color: #000;
-                        text-decoration: underline;
-
-                    }
-                }
-
-                &:hover {
                     text-decoration: underline;
-                }
 
+                }
+            }
+
+            &:hover {
+                text-decoration: underline;
             }
 
         }
 
-        h3 {
-            color: #000;
-            text-transform: uppercase;
-        }
+    }
 
-        p {
-            font-size: 16px;
-            font-weight: 400;
-            color: #000;
-        }
+    h3 {
+        color: #000;
+        text-transform: uppercase;
+    }
 
-        aside {
-            padding-bottom: 1rem;
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        color: #000;
+    }
+
+    aside {
+        padding-bottom: 1rem;
+    }
+
+}
+
+.tmc_mp_inner {
+
+}
+
+.tmc_mp_error_message {
+
+    padding: 1em;
+
+}
+
+.tmc_mp_mobile_close_area {
+
+    padding: 0.6em;
+    text-align: right;
+
+    @media screen and ( min-width: $mobile-breakpoint ){
+
+        & {
+            display: none;
         }
 
     }
 
-    .tmc_mp_error_message {
+}
 
-        padding: 1em;
+.tmc_mp_close_button {
 
+    cursor: pointer;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    position: relative;
+
+    &::before,
+    &::after {
+
+        display: block;
+        position: absolute;
+        content: '';
+        width: 32px;
+        height: 4px;
+        left: 0;
+        top: 50%;
+        background-color: black;
+
+    }
+
+    &::after {
+        transform: rotate(45deg);
+    }
+
+    &::before {
+        transform: rotate(-45deg);
     }
 
 }
