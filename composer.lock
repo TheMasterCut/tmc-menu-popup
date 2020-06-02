@@ -1,0 +1,92 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "ca6b1064f09606dfd8e3363a009a196d",
+    "packages": [
+        {
+            "name": "tmc/admin-page-framework",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "http://vps380040.ovh.net/public-access/tmc-admin-page-framework.git",
+                "reference": "396ea08e862a804e5f62ecf895bcab5eadc3085a"
+            },
+            "type": "library",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Kuranda",
+                    "email": "jakubkuranda@gmail.com"
+                }
+            ],
+            "description": "Compiled version of admin-page-framework",
+            "time": "2019-05-07T11:36:47+00:00"
+        },
+        {
+            "name": "tmc/shellpress",
+            "version": "dev-1_3_84",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TheMasterCut/ShellPress.git",
+                "reference": "5bededebfa87fa32442b67f16f8eb5f6c508d270"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TheMasterCut/ShellPress/zipball/5bededebfa87fa32442b67f16f8eb5f6c508d270",
+                "reference": "5bededebfa87fa32442b67f16f8eb5f6c508d270",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-zip": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "shellpress\\v1_3_84\\": ""
+                },
+                "psr-0": {
+                    "Mustache": "lib/Mustache/"
+                },
+                "files": [
+                    "src/Shared/Utility/RequirementChecker.php"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Kuranda",
+                    "email": "jakubkuranda@gmail.com"
+                }
+            ],
+            "description": "Wordpress plugin framework",
+            "support": {
+                "source": "https://github.com/TheMasterCut/ShellPress/tree/1_3_84",
+                "issues": "https://github.com/TheMasterCut/ShellPress/issues"
+            },
+            "time": "2020-04-10T20:09:12+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "tmc/shellpress": 20,
+        "tmc/admin-page-framework": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.3"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
+}

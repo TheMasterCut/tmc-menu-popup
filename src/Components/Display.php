@@ -68,6 +68,7 @@ class Display extends IComponent {
                 <div class="tmc_mp_inner">
 
 					<?php
+                    ob_start();
 					if( is_active_sidebar( 'tmc-menu-popup-widgets' ) ){
 
 						echo '<ul class="widgets">';
@@ -77,10 +78,23 @@ class Display extends IComponent {
 					} else {
 
 					    if( current_user_can( 'manage_options' ) ){
-					        printf( '<p class="tmc_mp_error_message">%1$s</p>', __( 'You need to enable sidebar in WordPress options.', 'tmc_mp' ) );
+					        echo '<div class="tmc_mp_error_message">';
+					        printf( '<div>%1$s</div>', __( 'You need to enable Menu Popup TMC sidebar in WordPress options.', 'tmc_mp' ) );
+					        printf( '<div>%1$s</div>', __( 'Just drag and drop your widgets into sidebar area.', 'tmc_mp' ) );
+					        printf( '<div><a href="%1$s" target="_blank">%2$s</a></div>', admin_url( 'widgets.php' ), __( 'Option page for it is right here.', 'tmc_mp' ) );
+							echo '<br/><br/>';
+					        printf( '<div>%1$s</div>', __( 'You can also filter this content with:.', 'tmc_mp' ) );
+					        printf( '<div><code>%1$s</code></div>', 'add_filter( \'tmc/menupopup/display/innerhtml/\', <callable> )' );
+					        echo '</div>';
                         }
 
                     }
+
+					$html = ob_get_clean();
+					$html = apply_filters( 'tmc/menupopup/display/innerhtml', $html );
+
+					//  Display.
+                    echo $html;
 					?>
 
                 </div>

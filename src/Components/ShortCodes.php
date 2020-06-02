@@ -47,15 +47,15 @@ class ShortCodes extends IComponent {
 			'open_text'		=>	App::i()->settings->getOpenBtnText() ?: ''
 		);
 
-		$attrs = wp_parse_args( $attrs, $defAttrs );
+		$attrs = shortcode_atts( $defAttrs, $attrs, $this::SHORTCODE_TAG );
 
 		if( $attrs['open_icon'] ){
 
-			return sprintf( '<span data-tmc_mp_open style="cursor: pointer; display: inline-block;"><img src="%1$s" alt="%2$s"></span>', $attrs['open_icon'], $attrs['open_text'] );
+			return sprintf( '<span data-tmc_mp_open class="tmc_mp_open_button"><img src="%1$s" alt="%2$s"></span>', $attrs['open_icon'], $attrs['open_text'] );
 
 		} else {
 
-			return sprintf( '<span data-tmc_mp_open style="cursor: pointer;">%1$s</span>', $attrs['open_icon'] );
+			return sprintf( '<span data-tmc_mp_open class="tmc_mp_open_button">%1$s</span>', $attrs['open_icon'] );
 
 		}
 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Menu Popup TMC
  * Description: Quick and easy to setup menu overlay.
- * Version:     1.0.2
+ * Version:     1.0.3
  * Plugin URI:  https://themastercut.co
  * Author:      TheMasterCut.co
  * License:     GPL-2.0+
@@ -41,4 +41,4 @@ if( ! $checkPHP || ! $checkWP ) return;
 
 use tmc\mp\src\App;
 
-App::initShellPress( __FILE__, 'tmc_mp', '1.0.2' );   //  <--- Remember to always change version here
+App::initShellPress( __FILE__, 'tmc_mp', '1.0.3' );   //  <--- Remember to always change version here
