@@ -10,7 +10,7 @@ use tmc\mp\src\App;
  * Time: 14:05
  */
 
-class tmc_mp_acf extends TMC_v1_0_3_AdminPageFramework {
+class tmc_mp_acf extends TMC_v1_0_6_AdminPageFramework {
 
 	public function setUp() {
 

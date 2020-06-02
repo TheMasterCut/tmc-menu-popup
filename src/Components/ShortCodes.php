@@ -1,6 +1,6 @@
 <?php
 namespace tmc\mp\src\Components;
-use shellpress\v1_2_4\src\Shared\Components\IComponent;
+use shellpress\v1_3_84\src\Shared\Components\IComponent;
 use tmc\mp\src\App;
 use WP_Term;
 
@@ -42,16 +42,20 @@ class ShortCodes extends IComponent {
 	 */
 	public function getOpenPopupShortcode( $attrs ) {
 
-		$iconUrl    = App::i()->settings->getOpenBtnIconUrl();
-		$btnText    = App::i()->settings->getOpenBtnText();
+		$defAttrs = array(
+			'open_icon'		=>	App::i()->settings->getOpenBtnIconUrl() ?: '',
+			'open_text'		=>	App::i()->settings->getOpenBtnText() ?: ''
+		);
 
-		if( $iconUrl ){
+		$attrs = wp_parse_args( $attrs, $defAttrs );
 
-			return sprintf( '<span data-tmc_mp_open style="cursor: pointer; display: inline-block;"><img src="%1$s" alt="%2$s"></span>', $iconUrl, $btnText );
+		if( $attrs['open_icon'] ){
+
+			return sprintf( '<span data-tmc_mp_open style="cursor: pointer; display: inline-block;"><img src="%1$s" alt="%2$s"></span>', $attrs['open_icon'], $attrs['open_text'] );
 
 		} else {
 
-			return sprintf( '<span data-tmc_mp_open style="cursor: pointer;">%1$s</span>', $btnText );
+			return sprintf( '<span data-tmc_mp_open style="cursor: pointer;">%1$s</span>', $attrs['open_icon'] );
 
 		}
 

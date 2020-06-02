@@ -7,7 +7,7 @@ namespace tmc\mp\src\Components;
  * Time: 13:21
  */
 
-use shellpress\v1_2_4\src\Shared\Components\IComponent;
+use shellpress\v1_3_84\src\Shared\Components\IComponent;
 use tmc\mp\src\App;
 
 class Display extends IComponent {

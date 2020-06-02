@@ -1,0 +1,39 @@
+{
+    "name" :              "tmc/mp",
+    "description" :       "Quick and easy to setup menu overlay.",
+    "minimum-stability" : "stable",
+    "license" :           "proprietary",
+    "authors" :           [
+        {
+            "name" :  "Jakub Kuranda",
+            "email" : "jakubkuranda@gmail.com"
+        }
+    ],
+    "repositories" :      [
+        {
+            "type" : "vcs",
+            "url" :  "https://github.com/TheMasterCut/ShellPress"
+        },
+        {
+            "type" : "vcs",
+            "url" :  "http://vps380040.ovh.net/public-access/tmc-admin-page-framework.git"
+        }
+    ],
+    "require" :           {
+        "php" :                             ">=5.3",
+        "tmc/shellpress" :                  "dev-1_3_84",
+        "tmc/admin-page-framework" :        "dev-master"
+    },
+    "autoload" :          {
+        "psr-4" : {
+            "tmc\\mp\\" : ""
+        },
+        "classmap" : [
+            "src/AdminPages/tmc_mp_acf.php"
+        ]
+    },
+    "config" : {
+        "secure-http" : false,
+        "discard-changes": true
+    }
+}

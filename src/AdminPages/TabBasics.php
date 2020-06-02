@@ -7,7 +7,7 @@ namespace tmc\mp\src\AdminPages;
  * Time: 14:29
  */
 
-use shellpress\v1_2_4\src\Shared\AdminPageFramework\AdminPageTab;
+use shellpress\v1_3_84\src\Shared\AdminPageFramework\AdminPageTab;
 use tmc\mp\src\App;
 
 class TabBasics extends AdminPageTab {
@@ -35,12 +35,6 @@ class TabBasics extends AdminPageTab {
 	 * Called while current component is loaded.
 	 */
 	public function load() {
-
-		//  ----------------------------------------
-		//  Actions
-		//  ----------------------------------------
-
-		add_action( 'admin_notices',        array( $this, '_a_displayLicenseNotification' ) );
 
 		//  ----------------------------------------
 		//  Sections
@@ -133,25 +127,4 @@ class TabBasics extends AdminPageTab {
 
 	}
 
-	//  ================================================================================
-	//  ACTIONS
-	//  ================================================================================
-
-	/**
-	 * Called on admin_notices.
-	 *
-	 * @return void
-	 */
-	public function _a_displayLicenseNotification() {
-
-		if( App::i()->license->getKey() ) return;
-
-		$linkHtml = sprintf( '<a href="%1$s">%2$s</a>',
-			add_query_arg( 'tab', 'tools' ),
-			__( 'Menu needs active license to work properly.', 'tmc_sp' )
-		);
-
-		printf( '<div class="notice notice-error tmc-notice is-dismissible"><p>%1$s</p></div>', $linkHtml );
-
-	}
 }
