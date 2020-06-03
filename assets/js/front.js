@@ -79,6 +79,8 @@ jQuery( document ).ready( function( $ ) {
             popup.elems.rootEl.removeClass( 'is-active' );
             $( 'body' ).removeClass( 'noscroll' );
 
+            $( document.body ).trigger( 'tmc_mp.popup.deactivated' );
+
         }
 
     };
